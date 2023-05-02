@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.myapplication.Domain.FoodDomain;
+import com.example.myapplication.Helper.ManagementOrder;
 import com.example.myapplication.adapter.CartListAdapter;
 import com.example.myapplication.Helper.ManagementCart;
 import com.example.myapplication.Interface.ChangeNumberItemsListener;
@@ -23,6 +26,14 @@ public class CartListActivity extends AppCompatActivity {
     TextView totalFeeTxt, taxTxt, deliveryTxt, totalTxt, emptyTxt;
     private double tax;
     private ScrollView scrollView;
+
+    private TextView titleTxt;
+
+    private Order object;
+
+    private int numberOrder = 1;
+
+    private ManagementOrder managementOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +59,14 @@ public class CartListActivity extends AppCompatActivity {
                 startActivity(new Intent(CartListActivity.this, CartListActivity.class));
             }
         });
+
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CartListActivity.this, MainActivity.class));
             }
+
+
         });
     }
 
@@ -104,4 +118,59 @@ public class CartListActivity extends AppCompatActivity {
         totalTxt.setText("$" + total);
 
     }
+
+    private void getBundle() {
+        object = (Order) getIntent().getSerializableExtra("object");
+
+        //int drawableResourceId = this.getResources().getIdentifier(object.getPic(), "drawable", this.getPackageName());
+
+        /*
+        Glide.with(this)
+                .load(drawableResourceId)
+                .into(picFood);
+
+         */
+
+        titleTxt.setText(object.getOrderName());
+        /*
+        feeTxt.setText("$" + object.getFee());
+        descriptionTxt.setText(object.getDescription());
+
+        numberOrderTxt.setText(String.valueOf(numberOrder));
+
+         */
+
+        /*
+        plusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberOrder = numberOrder + 1;
+                numberOrderTxt.setText(String.valueOf(numberOrder));
+            }
+        });
+
+        minusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numberOrder > 1) {
+                    numberOrder = numberOrder - 1;
+                }
+                numberOrderTxt.setText(String.valueOf(numberOrder));
+            }
+        });
+
+        addToCardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                object.setNumberInCart(numberOrder);
+                managementCart.insertFood(object);
+            }
+        });
+
+         */
+    }
+
+
+
+
 }
